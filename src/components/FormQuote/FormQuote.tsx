@@ -19,7 +19,6 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction}) => {
   const [form, setForm] = useState<IQuoteForm>(initialState)
 
   const categories = [
-    {title: 'All', id: 'all'},
     {title: 'Star Wars', id: 'star-wars'},
     {title: 'Famous people', id: 'famous-people'},
     {title: 'Saying', id: 'saying'},
@@ -61,7 +60,11 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction}) => {
                   onChange={onCategoryChange}
                   required
                   fullWidth
+                  displayEmpty
                 >
+                  <MenuItem value="" disabled>
+                    Category
+                  </MenuItem>
                   {categories.map((category) => (
                     <MenuItem key={category.id} value={category.id}>
                       {category.title}

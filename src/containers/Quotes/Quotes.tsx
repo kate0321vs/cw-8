@@ -3,6 +3,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { IQuote, IQuoteApi } from '../../types';
 import axiosApi from '../../axiosApi.ts';
 import { useParams } from 'react-router-dom';
+import QuoteItem from '../../components/QuoteItem/QuoteItem.tsx';
+import Loader from '../../components/UI/Loader/Loader.tsx';
+import { Typography } from '@mui/material';
 
 const Quotes = () => {
   const [quotesList, setQuotesList] = useState<IQuote[]>([]);
@@ -10,13 +13,12 @@ const Quotes = () => {
   const {category} = useParams();
 
   const fetchQuotes = useCallback(async () => {
-    if (!category) return;
     try{
       setLoading(true);
 
-      let URL = 'quotes.json'
-      if (category && category !== 'all') {
-        URL = `quotes.json?orderBy="category"&equalTo="${category}"`;
+      let URL = `quotes.json?orderBy="category"&equalTo="${category}"`
+      if (!category || category === 'all') {
+        URL =  'quotes.json'
       }
 
       const response = await axiosApi<IQuoteApi>(URL);
@@ -46,9 +48,23 @@ const Quotes = () => {
 
   console.log(quotesList)
 
+  let quotes = (
+    <>
+      {quotesList.map((quote) => (
+        <QuoteItem quote={quote} key={quote.id}/>
+      ))
+      }
+    </>
+  )
+
+  if (loading) quotes = <Loader/>
+
   return (
     <>
       <CategoryNavBar/>
+      {category ? <Typography variant="h2">{category}</Typography> :
+      <Typography variant="h2">all</Typography>}
+      {quotes}
     </>
   );
 };
