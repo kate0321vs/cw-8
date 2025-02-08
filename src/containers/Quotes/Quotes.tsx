@@ -31,7 +31,7 @@ const Quotes = () => {
             ...quotesObject[key],
           };
         })
-        setQuotesList(quotesArr);
+        setQuotesList(quotesArr.reverse());
       } else {
         setQuotesList([]);
       }

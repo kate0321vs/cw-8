@@ -21,7 +21,7 @@ const QuoteItem: React.FC<Props> = ({quote, onDeleteQuote}) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button component={NavLink} to={`/posts/${quote.id}/edit`}  size="small">Edit</Button>
+          <Button component={NavLink} to={`/quotes/${quote.id}/edit`}  size="small">Edit</Button>
           <Button onClick={onDeleteQuote} color='error' size="small">Delete</Button>
         </CardActions>
       </Card>
