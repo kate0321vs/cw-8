@@ -40,7 +40,6 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction, id}) => {
     try {
       setLoading(true);
       const response = await axiosApi<IQuoteForm>(`quotes/${id}.json`);
-      console.log(response.data);
       if (!response.data) {
         toast.error('Quote not found');
         navigate('/');
@@ -59,7 +58,7 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction, id}) => {
   }, [fetchApiPosts]);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setForm({
       ...form,
       [name]: value,
@@ -67,7 +66,7 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction, id}) => {
   };
 
   const onCategoryChange = (e: SelectChangeEvent<string>) => {
-    const { value } = e.target;
+    const {value} = e.target;
     setForm({
       ...form,
       category: value,
@@ -81,7 +80,7 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction, id}) => {
 
   return (
     <>
-      {loading && <Loader />}
+      {loading && <Loader/>}
       <form onSubmit={onSubmit}>
         <Typography variant="h4" sx={{flexGrow: 1, textAlign: 'center'}}>{isEdit ? 'Edit ' : 'Add new '}
           quote</Typography>
@@ -135,7 +134,7 @@ const FormQuote: React.FC<Props> = ({isEdit = false, onSubmitAction, id}) => {
       </form>
     </>
 
-);
+  );
 };
 
 export default FormQuote;

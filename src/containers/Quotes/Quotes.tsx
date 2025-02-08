@@ -1,24 +1,32 @@
 import CategoryNavBar from '../../components/CategoryNavBar/CategoryNavBar.tsx';
 import { useCallback, useEffect, useState } from 'react';
-import { IQuote, IQuoteApi } from '../../types';
+import { IQuote, IQuoteApi, ITitle } from '../../types';
 import axiosApi from '../../axiosApi.ts';
 import { useParams } from 'react-router-dom';
 import QuoteItem from '../../components/QuoteItem/QuoteItem.tsx';
 import Loader from '../../components/UI/Loader/Loader.tsx';
-import { Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 const Quotes = () => {
   const [quotesList, setQuotesList] = useState<IQuote[]>([]);
   const [loading, setLoading] = useState(false);
   const {category} = useParams();
+  const categoryTitles: ITitle = {
+    'star-wars': 'Star Wars',
+    'famous-people': 'Famous People',
+    'saying': 'Saying',
+    'humor': 'Humor',
+    'motivational': 'Motivational',
+    'all': 'All',
+  };
 
   const fetchQuotes = useCallback(async () => {
-    try{
+    try {
       setLoading(true);
 
       let URL = `quotes.json?orderBy="category"&equalTo="${category}"`
       if (!category || category === 'all') {
-        URL =  'quotes.json'
+        URL = 'quotes.json'
       }
 
       const response = await axiosApi<IQuoteApi>(URL);
@@ -35,7 +43,7 @@ const Quotes = () => {
       } else {
         setQuotesList([]);
       }
-    }catch(e){
+    } catch (e) {
       alert(e);
     } finally {
       setLoading(false);
@@ -47,18 +55,18 @@ const Quotes = () => {
   }, [fetchQuotes])
 
   const deleteQuote = async (quote: IQuote) => {
-      if (quote.id) {
-        try {
-          setLoading(true);
-          await axiosApi.delete<IQuoteApi>(`quotes/${quote.id}.json`);
-          setQuotesList([]);
-          void fetchQuotes();
-        } catch (e) {
-          alert(e);
-        }finally {
-          setLoading(false);
-        }
+    if (quote.id) {
+      try {
+        setLoading(true);
+        await axiosApi.delete<IQuoteApi>(`quotes/${quote.id}.json`);
+        setQuotesList([]);
+        void fetchQuotes();
+      } catch (e) {
+        alert(e);
+      } finally {
+        setLoading(false);
       }
+    }
   }
 
   let quotes = (
@@ -72,12 +80,20 @@ const Quotes = () => {
 
   if (loading) quotes = <Loader/>
 
+  let title = '';
+  if (category) {
+    title = `${categoryTitles[category]} Quotes`;
+  } else {
+    title = 'All Quotes';
+  }
+
   return (
     <>
-      <CategoryNavBar/>
-      {category ? <Typography variant="h2">{category}</Typography> :
-      <Typography variant="h2">all</Typography>}
-      {quotes}
+      <Container maxWidth="lg">
+        <CategoryNavBar/>
+        <Typography textAlign={'center'} mt={5} mb={3} variant="h4">{title}</Typography>
+        {quotes}
+      </Container>
     </>
   );
 };

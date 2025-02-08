@@ -10,5 +10,8 @@ export interface IQuote extends IQuoteForm {
 
 export interface IQuoteApi {
   [id: string]: IQuoteForm;
+}
 
+export interface ITitle {
+[key: string]: string;
 }

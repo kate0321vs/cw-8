@@ -11,19 +11,20 @@ const CategoryNavBar = () => {
     {title: 'Motivational', id: 'motivational'},
   ]
   return (
-      <List sx={{ width: '250px'}}>
-        {categories.map((category) => (
-          <ListItem key={category.id}
-                    sx={{padding: '0', borderBottom: '1px solid darkblue'}}>
-            <Button sx={{paddingLeft: '20px', width:'100%', justifyContent: "flex-start"}}
-                    color='primary'
-                    component={NavLink}
-                    to={`/quotes/${category.id}`}>
-              {category.title}
-            </Button>
-          </ListItem>
-        ))}
-      </List>
+    <List sx={{display: 'flex', flexDirection: 'row', gap: 2}}>
+      {categories.map((category) => (
+        <ListItem key={category.id} sx={{width: 'auto', padding: '0'}}>
+          <Button
+            sx={{paddingX: '20px'}}
+            color="primary"
+            component={NavLink}
+            to={`/quotes/${category.id}`}
+          >
+            {category.title}
+          </Button>
+        </ListItem>
+      ))}
+    </List>
   );
 };
 

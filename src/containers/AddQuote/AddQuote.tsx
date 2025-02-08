@@ -28,7 +28,6 @@ const AddQuote = () => {
       {loading ? <Loader/> :
         <FormQuote onSubmitAction={onSubmitNewQuote}/>
       }
-
     </>
   );
 };

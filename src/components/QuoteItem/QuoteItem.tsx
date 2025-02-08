@@ -12,17 +12,16 @@ const QuoteItem: React.FC<Props> = ({quote, onDeleteQuote}) => {
     <>
       <Card variant="outlined" sx={{minWidth: 275, mb: 5}}>
         <CardContent>
-          <Typography gutterBottom sx={{fontSize: 19}}>
-            {quote.quote}
+          <Typography mt={2} gutterBottom sx={{fontSize: 19}}>
+            «{quote.quote}»
           </Typography>
-          <hr/>
-          <Typography variant='body2' gutterBottom sx={{fontSize: 19}}>
-            {quote.author}
+          <Typography mt={2} component="p" gutterBottom sx={{fontSize: 18}}>
+            — {quote.author}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button component={NavLink} to={`/quotes/${quote.id}/edit`}  size="small">Edit</Button>
-          <Button onClick={onDeleteQuote} color='error' size="small">Delete</Button>
+          <Button component={NavLink} to={`/quotes/${quote.id}/edit`} size="small">Edit</Button>
+          <Button onClick={onDeleteQuote} color="error" size="small">Delete</Button>
         </CardActions>
       </Card>
     </>
