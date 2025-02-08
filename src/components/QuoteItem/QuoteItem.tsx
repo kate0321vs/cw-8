@@ -4,9 +4,10 @@ import { NavLink } from 'react-router-dom';
 
 interface Props {
   quote: IQuote;
+  onDeleteQuote: React.MouseEventHandler;
 }
 
-const QuoteItem: React.FC<Props> = ({quote}) => {
+const QuoteItem: React.FC<Props> = ({quote, onDeleteQuote}) => {
   return (
     <>
       <Card variant="outlined" sx={{minWidth: 275, mb: 5}}>
@@ -21,7 +22,7 @@ const QuoteItem: React.FC<Props> = ({quote}) => {
         </CardContent>
         <CardActions>
           <Button component={NavLink} to={`/posts/${quote.id}/edit`}  size="small">Edit</Button>
-          <Button color='error' size="small">Delete</Button>
+          <Button onClick={onDeleteQuote} color='error' size="small">Delete</Button>
         </CardActions>
       </Card>
     </>

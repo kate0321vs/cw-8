@@ -46,12 +46,25 @@ const Quotes = () => {
     void fetchQuotes()
   }, [fetchQuotes])
 
-  console.log(quotesList)
+  const deleteQuote = async (quote: IQuote) => {
+      if (quote.id) {
+        try {
+          setLoading(true);
+          await axiosApi.delete<IQuoteApi>(`quotes/${quote.id}.json`);
+          setQuotesList([]);
+          void fetchQuotes();
+        } catch (e) {
+          alert(e);
+        }finally {
+          setLoading(false);
+        }
+      }
+  }
 
   let quotes = (
     <>
       {quotesList.map((quote) => (
-        <QuoteItem quote={quote} key={quote.id}/>
+        <QuoteItem quote={quote} key={quote.id} onDeleteQuote={() => deleteQuote(quote)}/>
       ))
       }
     </>
