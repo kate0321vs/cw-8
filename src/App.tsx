@@ -14,8 +14,8 @@ const App = () => {
         <Routes>
           <Route path="/"
                  element={<Quotes/>}/>
-          <Route path="/quotes"
-                 element={<Quotes/>}/>
+          <Route path="/quotes" element={<Quotes />} />
+          <Route path="/quotes/:category" element={<Quotes />} />
           <Route path="/quotes/add-quote"
                  element={<AddQuote/>}/>
           <Route path="*"
